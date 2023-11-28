@@ -125,16 +125,11 @@ namespace SantaClause
         static private List<Kid_Info> kids = new List<Kid_Info>();
         static private List<Gift> Gifts = new List<Gift>();
         static private List<Kid_Info> Fully_Registered_Kids = new List<Kid_Info>();
-<<<<<<< HEAD
-        static private string path_data = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data.txt";
-        static private string path_data2 = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data2.txt";
-        static private string path_gift = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\gifts.txt";
-=======
-        static private string path_data = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data.txt";
-        static private string path_data2 = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data2.txt";
-        static private string path_gift = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\gifts.txt";
-        static private string path_user = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\user_info.txt";
->>>>>>> 158eaa331d44082f0f636545d0edac97f58bdc03
+
+        static private string path_data = "C:\\Users\\ahama\\Desktop\\SantaNewTeam\\Data.txt";
+        static private string path_data2 = "C:\\Users\\ahama\\Desktop\\SantaNewTeam\\Data2.txt";
+        static private string path_gift = "C:\\Users\\ahama\\Desktop\\SantaNewTeam\\gifts.txt";
+        static private string path_users = "C:\\Users\\ahama\\Desktop\\SantaNewTeam\\user_info.txt";
         static void Main(string[] args)
         {
             List<User> users = new List<User>();
@@ -294,7 +289,7 @@ namespace SantaClause
         {
             try
             {
-                string[] lines = File.ReadAllLines(path_user);
+                string[] lines = File.ReadAllLines(path_users);
 
                 foreach (string line in lines)
                 {
@@ -357,14 +352,14 @@ namespace SantaClause
         {
             // Append the new user information to the user_info.txt file
             string userInfo = $"{user.Get_Name()};{user.Get_Surname()};{user.Get_Username()};{user.Get_Password()}";
-            File.AppendAllLines(path_user, new[] { userInfo });
+            File.AppendAllLines(path_users, new[] { userInfo });
         }
 
         static bool IsUsernameTaken(string username)
         {
             try
             {
-                string[] lines = File.ReadAllLines(path_user);
+                string[] lines = File.ReadAllLines(path_users);
 
                 for (int i = 0; i < lines.Length; i += 4)
                 {
@@ -411,7 +406,9 @@ namespace SantaClause
             Console.Write("****************************************************************************\n");
             Console.Write("**             9           | Display Number of unassigned children/gifts  **\n");
             Console.Write("****************************************************************************\n");
-            Console.Write("**             10          | Change status  **\n");
+            Console.Write("**             10          | Change status                                **\n");
+            Console.Write("****************************************************************************\n");
+            Console.Write("**             11          | Display user info                            **\n");
             Console.Write("****************************************************************************\n");
             Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
             Console.Write("****************************************************************************\n");
@@ -855,7 +852,9 @@ namespace SantaClause
             Lazy_Mode = 6,
             Display_All_Kids = 7,
             Display_Gift_List = 8,
-            Display_Unassignes = 9
+            Display_Unassignes = 9,
+            Change_Status = 10,
+            Display_User_Info = 11
         }
     }
 
