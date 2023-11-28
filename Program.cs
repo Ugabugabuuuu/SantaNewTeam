@@ -47,6 +47,16 @@ class Gift
 {
     private int amount = 0;
     private string gift;
+    private string status = "Laisva"; // laisva, nelaisva (kam priskirta), gaminama, pagaminta
+    private User assined = new User();
+    public void Set_status(string status)
+    {
+        status = status;
+    }
+    public void Set_assinee(User user)
+    {
+        assined = user;
+    }
     public void Set_Gift(string g)
     {
         gift = g;
@@ -65,7 +75,7 @@ class Gift
     }
 }
 
-class Users
+class User
 {
     private string username;
     private string password;
@@ -111,11 +121,12 @@ namespace SantaClause
         static private List<Kid_Info> kids = new List<Kid_Info>();
         static private List<Gift> Gifts = new List<Gift>();
         static private List<Kid_Info> Fully_Registered_Kids = new List<Kid_Info>();
-        static private string path_data = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data.txt";
-        static private string path_data2 = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data2.txt";
-        static private string path_gift = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\gifts.txt";
+        static private string path_data = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data.txt";
+        static private string path_data2 = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data2.txt";
+        static private string path_gift = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\gifts.txt";
         static void Main(string[] args)
         {
+            List<User> users = new List<User>();
             Gift gift = new Gift();
             Kid_Info kid = new Kid_Info();
 
@@ -146,11 +157,11 @@ namespace SantaClause
                 }
                 else if (input_key == (int)User_Input.Add_New_Gift)
                 {
-                    Add_Gifts_To_List(gift, exists);
+                    Add_Gifts_To_List(gift, exists, users);
                     gift = null;
                 }
                 else if (input_key == (int)User_Input.Add_Spec_Gift_To_Kid)
-                {  
+                {
                     Add_Gift_To_Specific_Child(gift, exists);
                     gift = null;
                 }
@@ -185,6 +196,11 @@ namespace SantaClause
                         if (tmp_gift.Get_Amount() == 0)
                             amount++;
                     Console.WriteLine(" Number of unassigned gifts: " + amount);
+                }
+                else if(input_key == 10)
+                {
+                    String input = Console.ReadLine();
+                    Change_Status(gift, input);
                 }
 
                 using (StreamWriter sw = File.CreateText(path_gift))
@@ -230,11 +246,14 @@ namespace SantaClause
             Console.Write("****************************************************************************\n");
             Console.Write("**             9           | Display Number of unassigned children/gifts  **\n");
             Console.Write("****************************************************************************\n");
+            Console.Write("**             10          | Change status  **\n");
+            Console.Write("****************************************************************************\n");
             Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
             Console.Write("****************************************************************************\n");
         }
         static List<Kid_Info> Read_File(string Path)
         {
+
             List<Kid_Info> Kids = new List<Kid_Info>();
             int flag = 0;
             string text = File.ReadAllText(Path);
@@ -300,7 +319,7 @@ namespace SantaClause
         }
         static void Gift_List(ref List<Gift> gifts)
         {
-            if(Gifts.Count == 0)
+            if (Gifts.Count == 0)
             {
                 Console.WriteLine("There's no gifts assigned...");
             }
@@ -384,7 +403,7 @@ namespace SantaClause
             return check.IsMatch(n);
         }
         static void Add_New_Child_To_List(Kid_Info kid)
-            {
+        {
             if (kid == null)
                 kid = new Kid_Info();
 
@@ -393,7 +412,7 @@ namespace SantaClause
             kid.Set_name(Console.ReadLine());
 
             Console.WriteLine("Input Surname: ");
-            
+
             kid.Set_LastName(Console.ReadLine());
             kid.Set_Status(false);
 
@@ -407,7 +426,7 @@ namespace SantaClause
                     Write_To_File(ref kids, path_data);
 
                     kid = null;
-                    return;  
+                    return;
                 }
                 else
                 {
@@ -415,14 +434,14 @@ namespace SantaClause
 
                     Console.WriteLine("Name already exists!");
                     return;
-                }  
+                }
             }
             else
                 Console.WriteLine("Not alowed symbols!!!");
 
             return;
         }
-        static void Add_Gifts_To_List(Gift gift, bool exists)
+        static void Add_Gifts_To_List(Gift gift, bool exists, List<User> users)
         {
             Console.WriteLine("adding gifts... \n");
             if (gift == null)
@@ -437,13 +456,43 @@ namespace SantaClause
                     break;
                 }
             };
-
+            Console.WriteLine("is there any elf that coul take this gift? (y/n)");
+            string input = Console.ReadLine().ToString();
+            if (input == "y")
+            {
+                Console.WriteLine("input elf username to assing him the pressent");
+                input = Console.ReadLine().ToString();
+                FindUser(users, input, gift);
+                gift.Set_status("nelaisva");
+            }
+            else
+            {
+                Console.WriteLine("ok");
+            }
             if (!exists)
             {
                 gift.Set_Amount(0);
                 Gifts.Add(gift);
             }
-               
+
+        }
+        static void FindUser(List<User> users, string name, Gift gift)
+        {
+            foreach (User i in users)
+            {
+                if (name == i.Get_Name())
+                {
+                    Console.WriteLine("user found");
+                    gift.Set_assinee(i);
+                }
+            }
+        }
+        static void Change_Status(Gift gift, String input)
+        {
+            if (input == "laisva" || input == "nelaisva"|| input == "daroma" || input== "padaryta")
+            {
+                gift.Set_status(input);
+            }
         }
         static void Add_Gift_To_Specific_Child(Gift gift, bool exists)
         {

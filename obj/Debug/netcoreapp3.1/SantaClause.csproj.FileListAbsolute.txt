@@ -40,3 +40,16 @@ D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaC
 D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaClause.dll
 D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaClause.pdb
 D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfoInputs.cache
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfo.cs
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.csproj.CoreCompileInputs.cache
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.dll
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.pdb
+C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.exe
+C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.deps.json
+C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.runtimeconfig.json
+C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.runtimeconfig.dev.json
+C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.dll
+C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.pdb
+C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
