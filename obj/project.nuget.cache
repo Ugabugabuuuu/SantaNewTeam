@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "YQWZ6UX2tagZ6pU9A5+Z2iKf+hom+VQhUu50uCt2t8FqGSdFZO9gQ38EyMMwwGR7CmHVZwl0OccV59tj3djAxg==",
+  "success": true,
+  "projectFilePath": "D:\\Unikas23_24\\SantaClauseTask_Danielius_Pliuskys\\SantaClause.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danie\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
+  ],
+  "logs": []
+}
