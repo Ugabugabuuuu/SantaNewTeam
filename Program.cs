@@ -274,14 +274,18 @@ namespace SantaClause
             {
                 string[] lines = File.ReadAllLines(path_user);
 
-                for (int i = 0; i < lines.Length; i += 4)
+                foreach (string line in lines)
                 {
-                    string storedUsername = lines[i].Trim();
-                    string storedPassword = lines[i + 1].Trim();
-
-                    if (storedUsername == username && storedPassword == password)
+                    string[] userInfo = line.Split(';');
+                    if (userInfo.Length == 4)
                     {
-                        return true;
+                        string storedUsername = userInfo[2].Trim();
+                        string storedPassword = userInfo[3].Trim();
+
+                        if (storedUsername == username && storedPassword == password)
+                        {
+                            return true; // Valid login
+                        }
                     }
                 }
             }
@@ -290,7 +294,7 @@ namespace SantaClause
                 Console.WriteLine($"Error reading user_info.txt: {ex.Message}");
             }
 
-            return false;
+            return false; 
         }
 
         static void RegisterPage()
@@ -329,14 +333,11 @@ namespace SantaClause
 
         static void WriteUserToFile(User user)
         {
-            using (StreamWriter sw = File.AppendText(path_user))
-            {
-                sw.WriteLine(user.Get_Username());
-                sw.WriteLine(user.Get_Password());
-                sw.WriteLine(user.Get_Name());
-                sw.WriteLine(user.Get_Surname());
-            }
+            // Append the new user information to the user_info.txt file
+            string userInfo = $"{user.Get_Name()};{user.Get_Surname()};{user.Get_Username()};{user.Get_Password()}";
+            File.AppendAllLines(path_user, new[] { userInfo });
         }
+
         static bool IsUsernameTaken(string username)
         {
             try

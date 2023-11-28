@@ -1,8 +1,1 @@
-sinob
-simon
-simonas
-pasakarnys
-simon
-ha
-ha
-ha
+simonas;pasakarnys;simon;ha
