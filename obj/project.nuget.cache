@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "EeXSno4piA7d52sddGEaiZA/yfffkjhk5cCcvnO3JcQ1UKaIXufPuBMTR4bi22H6+OWePO0YunELGFfq57ACTQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\SantaClause.csproj",
+=======
+  "dgSpecHash": "vxIIKGv7/yi+DCXcXE4qiWgXEuCBPEUU6B1jCpPb0gycWdJ36peYGrIFHCKJPlZjF7YPFQOf9PDnq684gti1ew==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\simon\\Downloads\\SantaNewTeam\\SantaClause.csproj",
+>>>>>>> 158eaa331d44082f0f636545d0edac97f58bdc03
   "expectedPackageFiles": [],
   "logs": []
 }

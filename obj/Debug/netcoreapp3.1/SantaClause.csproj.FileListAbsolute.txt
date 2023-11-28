@@ -40,6 +40,7 @@ D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaC
 D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaClause.dll
 D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaClause.pdb
 D:\Unikas23_24\SantaClauseTask_Danielius_Pliuskys\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
+<<<<<<< HEAD
 C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfoInputs.cache
 C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfo.cs
@@ -53,3 +54,19 @@ C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.
 C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.dll
 C:\Users\danie\Downloads\Santa\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.pdb
 C:\Users\danie\Downloads\Santa\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
+=======
+C:\Users\simon\Downloads\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.exe
+C:\Users\simon\Downloads\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.deps.json
+C:\Users\simon\Downloads\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.runtimeconfig.json
+C:\Users\simon\Downloads\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.runtimeconfig.dev.json
+C:\Users\simon\Downloads\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.dll
+C:\Users\simon\Downloads\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.pdb
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.csproj.AssemblyReference.cache
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfoInputs.cache
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfo.cs
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.csproj.CoreCompileInputs.cache
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.dll
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.pdb
+C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
+>>>>>>> 158eaa331d44082f0f636545d0edac97f58bdc03

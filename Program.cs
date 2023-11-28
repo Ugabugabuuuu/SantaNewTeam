@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+
 class Kid_Info
 {
     private string name;
@@ -114,16 +116,25 @@ class User
         return surname;
     }
 }
+
 namespace SantaClause
 {
     class Program
-    {
+    {   
+        static private bool authorized = false;
         static private List<Kid_Info> kids = new List<Kid_Info>();
         static private List<Gift> Gifts = new List<Gift>();
         static private List<Kid_Info> Fully_Registered_Kids = new List<Kid_Info>();
+<<<<<<< HEAD
         static private string path_data = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data.txt";
         static private string path_data2 = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data2.txt";
         static private string path_gift = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\gifts.txt";
+=======
+        static private string path_data = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data.txt";
+        static private string path_data2 = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data2.txt";
+        static private string path_gift = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\gifts.txt";
+        static private string path_user = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\user_info.txt";
+>>>>>>> 158eaa331d44082f0f636545d0edac97f58bdc03
         static void Main(string[] args)
         {
             List<User> users = new List<User>();
@@ -134,9 +145,13 @@ namespace SantaClause
             Fully_Registered_Kids = Read_File(path_data2);
 
             Read_Gifts(ref Gifts);
-
+            while (!authorized)
+            {
+                Login();
+            }
             while (true)
             {
+
                 Menu();
 
                 bool exists = false;
@@ -216,7 +231,157 @@ namespace SantaClause
                 Console.Clear();
             }
 
+        }
+        static void Login() 
+        {
+            Console.Write("****************************************************************************\n");
+            Console.Write("**                             Welcome!                                   **\n");
+            Console.Write("****************************************************************************\n");
+            Console.Write("**           Press         |           Operation                          **\n");
+            Console.Write("****************************************************************************\n");
+            Console.Write("**             1           |               Login                          **\n");
+            Console.Write("****************************************************************************\n");
+            Console.Write("**             2           |            Registration                      **\n");
+            Console.Write("****************************************************************************\n");
+            Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
+            Console.Write("****************************************************************************\n");
 
+            int input_key;
+
+            while (!int.TryParse(Console.ReadLine().ToString(), out input_key))
+            {
+                Console.WriteLine(" Unknown command. Enter Command from Menu.....");
+                Console.WriteLine(input_key + "\n");
+            }
+            if (input_key == (int)User_Input.Exit)
+                Environment.Exit(0);
+            if (input_key == (int)User_Input.Login)
+            {
+                LoginPage();
+            }
+            else if (input_key == (int)User_Input.Register)
+            {
+                RegisterPage();
+            }
+
+
+        }
+  
+        static void LoginPage()
+        {
+            Console.WriteLine("Enter your username: ");
+            string username = Console.ReadLine();
+
+            Console.WriteLine("Enter your password: ");
+            string password = Console.ReadLine();
+
+            if (IsValidLogin(username, password))
+            {
+                Console.WriteLine("Login successful!");
+                authorized = true;
+            }
+            else
+            {
+                Console.WriteLine("Invalid username or password. Please try again.");
+            }
+            Console.WriteLine("press any key to continue: ");
+
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        static bool IsValidLogin(string username, string password)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(path_user);
+
+                foreach (string line in lines)
+                {
+                    string[] userInfo = line.Split(';');
+                    if (userInfo.Length == 4)
+                    {
+                        string storedUsername = userInfo[2].Trim();
+                        string storedPassword = userInfo[3].Trim();
+
+                        if (storedUsername == username && storedPassword == password)
+                        {
+                            return true; // Valid login
+                        }
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Error reading user_info.txt: {ex.Message}");
+            }
+
+            return false; 
+        }
+
+        static void RegisterPage()
+        {
+            User newUser = new User();
+
+            Console.WriteLine("Enter a username: ");
+            newUser.Set_Username(Console.ReadLine());
+
+            Console.WriteLine("Enter a password: ");
+            newUser.Set_Password(Console.ReadLine());
+
+            Console.WriteLine("Enter your first name: ");
+            newUser.Set_Name(Console.ReadLine());
+
+            Console.WriteLine("Enter your surname: ");
+            newUser.Set_Surname(Console.ReadLine());
+
+            if (!IsUsernameTaken(newUser.Get_Username()))
+            {
+                WriteUserToFile(newUser);
+
+                Console.WriteLine("Registration successful! You can now log in.");
+            }
+            else
+            {
+                Console.WriteLine("Username already exists. Please choose another username.");
+            }
+
+            Console.WriteLine("press any key to continue: ");
+
+            Console.ReadKey();
+            Console.Clear();
+            return;
+        }
+
+        static void WriteUserToFile(User user)
+        {
+            // Append the new user information to the user_info.txt file
+            string userInfo = $"{user.Get_Name()};{user.Get_Surname()};{user.Get_Username()};{user.Get_Password()}";
+            File.AppendAllLines(path_user, new[] { userInfo });
+        }
+
+        static bool IsUsernameTaken(string username)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(path_user);
+
+                for (int i = 0; i < lines.Length; i += 4)
+                {
+                    string storedUsername = lines[i].Trim();
+
+                    if (storedUsername == username)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Error reading user_info.txt: {ex.Message}");
+            }
+
+            return false;
         }
         static void Menu()
         {
@@ -676,7 +841,11 @@ namespace SantaClause
             }
         }
         enum User_Input
-        {
+        {   
+            Register = 2,
+            Login = 1,
+
+
             Exit = 0,
             Add_New_Child = 1,
             Add_New_Gift = 2,
