@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aLynnd/P1iQEUi/eyN5hdW5Wsj6tNIob0d+6d4yB5wjpIbKY+9oq97bw64XheX0tz5Gir9peedfxE8CorfXi7Q==",
+  "dgSpecHash": "EeXSno4piA7d52sddGEaiZA/yfffkjhk5cCcvnO3JcQ1UKaIXufPuBMTR4bi22H6+OWePO0YunELGFfq57ACTQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ahama\\Desktop\\SantaNewTeam\\SantaClause.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\ahama\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\ahama\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\ahama\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\ahama\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\SantaClause.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
