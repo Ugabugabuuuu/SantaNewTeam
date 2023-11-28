@@ -64,6 +64,46 @@ class Gift
         return gift;
     }
 }
+
+class Users
+{
+    private string username;
+    private string password;
+    private string name;
+    private string surname;
+    public void Set_Username(string n)
+    {
+        username = n;
+    }
+    public string Get_Username()
+    {
+        return username;
+    }
+    public void Set_Password(string n)
+    {
+        password = n;
+    }
+    public string Get_Password()
+    {
+        return password;
+    }
+    public void Set_Name(string n)
+    {
+        name = n;
+    }
+    public string Get_Name()
+    {
+        return name;
+    }
+    public void Set_Surname(string n)
+    {
+        surname = n;
+    }
+    public string Get_Surname()
+    {
+        return surname;
+    }
+}
 namespace SantaClause
 {
     class Program
@@ -71,9 +111,9 @@ namespace SantaClause
         static private List<Kid_Info> kids = new List<Kid_Info>();
         static private List<Gift> Gifts = new List<Gift>();
         static private List<Kid_Info> Fully_Registered_Kids = new List<Kid_Info>();
-        static private string path_data = "C:\\Users\\danie\\source\\repos\\SantaClauseTask_Danielius_Pliuskys\\data.txt";
-        static private string path_data2 = "C:\\Users\\danie\\source\\repos\\SantaClauseTask_Danielius_Pliuskys\\Data2.txt";
-        static private string path_gift = "C:\\Users\\danie\\source\\repos\\SantaClauseTask_Danielius_Pliuskys\\gifts.txt";
+        static private string path_data = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data.txt";
+        static private string path_data2 = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\Data2.txt";
+        static private string path_gift = "C:\\Users\\simon\\Downloads\\SantaNewTeam\\gifts.txt";
         static void Main(string[] args)
         {
             Gift gift = new Gift();
