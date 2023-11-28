@@ -262,6 +262,36 @@ namespace SantaClause
 
                     if (!found) { Console.WriteLine("No such user found"); }
                 }
+                else if (input_key == (int)User_Input.Update_User_Info)
+                {
+                    Console.WriteLine("Input the user's username: ");
+                    string username = Console.ReadLine();
+                    bool found = false;
+                    foreach (User user in users)
+                    {
+                        if (user.Get_Username() == username)
+                        {
+                            Console.WriteLine("Input new username: ");
+                            string newUsername = Console.ReadLine();
+                            Console.WriteLine("Input new password: ");
+                            string newPassword = Console.ReadLine();
+                            Console.WriteLine("Input new name: ");
+                            string newName = Console.ReadLine();
+                            Console.WriteLine("Input new surname: ");
+                            string newSurname = Console.ReadLine();
+                            user.Set_Username(newUsername);
+                            user.Set_Password(newPassword);
+                            user.Set_Name(newName);
+                            user.Set_Surname(newSurname);
+
+                            Write_All_Users_To_File(users, path_users);
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) { Console.WriteLine("No such user found"); }
+                }
 
                 using (StreamWriter sw = File.CreateText(path_gift))
                     {
@@ -400,7 +430,21 @@ namespace SantaClause
                 return;
             }
 
-            static void WriteUserToFile(User user)
+        static void Write_All_Users_To_File(List<User> pUsers, string Path)
+        {
+            using (StreamWriter sw = File.CreateText(Path))
+            {
+                foreach (User user in pUsers)
+                {
+                    sw.Write(user.Get_Name() + ";");
+                    sw.Write(user.Get_Surname() + ";");
+                    sw.Write(user.Get_Username() + ";");
+                    sw.Write(user.Get_Password() + "\n");
+                }
+            }
+        }
+
+        static void WriteUserToFile(User user)
             {
                 // Append the new user information to the user_info.txt file
                 string userInfo = $"{user.Get_Name()};{user.Get_Surname()};{user.Get_Username()};{user.Get_Password()}";
@@ -444,7 +488,7 @@ namespace SantaClause
                 Console.Write("****************************************************************************\n");
                 Console.Write("**             2           | Add new gift to list                         **\n");
                 Console.Write("****************************************************************************\n");
-                Console.Write("**             3           | Set specific gift to wanted child            ** \n");
+                Console.Write("**             3           | Set specific gift to wanted child           ** \n");
                 Console.Write("****************************************************************************\n");
                 Console.Write("**             4           | Set specific gift to random child            **\n");
                 Console.Write("****************************************************************************\n");
@@ -452,7 +496,7 @@ namespace SantaClause
                 Console.Write("****************************************************************************\n");
                 Console.Write("**             6           | Activate  Lazy mode                          **\n");
                 Console.Write("****************************************************************************\n");
-                Console.Write("**             7           | Display all kids(registred/unregistred)     **\n");
+                Console.Write("**             7           | Display all kids(registred/unregistred)      **\n");
                 Console.Write("****************************************************************************\n");
                 Console.Write("**             8           | Display gift list                            **\n");
                 Console.Write("****************************************************************************\n");
@@ -462,6 +506,8 @@ namespace SantaClause
                 Console.Write("****************************************************************************\n");
                 Console.Write("**             11          | Display user info                            **\n");
                 Console.Write("****************************************************************************\n");
+                Console.Write("**             12          | Update user info                             **\n");
+                Console.Write("****************************************************************************\n");
                 Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
                 Console.Write("****************************************************************************\n");
             }
@@ -470,7 +516,7 @@ namespace SantaClause
         {
             List<User> result = new List<User>();
             string text = File.ReadAllText(Path);
-            string[] lines = text.Split(Environment.NewLine);
+            string[] lines = text.Split("\n");
             foreach (var line in lines)
             {
                 if (line == "") continue;
@@ -943,7 +989,8 @@ namespace SantaClause
             Display_Gift_List = 8,
             Display_Unassignes = 9,
             Change_Status = 10,
-            Display_User_Info = 11
+            Display_User_Info = 11,
+            Update_User_Info = 12
         }
     }
 
