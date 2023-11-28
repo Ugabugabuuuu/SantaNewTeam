@@ -134,18 +134,26 @@ namespace SantaClause
         static private List<Gift> Gifts = new List<Gift>();
         static private List<Kid_Info> Fully_Registered_Kids = new List<Kid_Info>();
 
-        static private string path_data = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data.txt";
-        static private string path_data2 = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\Data2.txt";
-        static private string path_gift = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\gifts.txt";
-        static private string path_users = "C:\\Users\\danie\\Downloads\\Santa\\SantaNewTeam\\user_info.txt";
+        static private string path_data;
+        static private string path_data2;
+        static private string path_gift;
+        static private string path_users;
+
         static void Main(string[] args)
         {
+            string currentDir = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.ToString();
+            path_data = currentDir + "\\Data.txt";
+            path_data2 = currentDir +"\\Data2.txt";
+            path_gift = currentDir + "\\gifts.txt";
+            path_users = currentDir + "\\user_info.txt";
+
             List<User> users = new List<User>();
             Gift gift = new Gift();
             Kid_Info kid = new Kid_Info();
 
             kids = Read_File(path_data);
             Fully_Registered_Kids = Read_File(path_data2);
+            users = Read_Users(path_users);
 
             Read_Gifts(ref Gifts);
             while (!authorized)
@@ -237,8 +245,25 @@ namespace SantaClause
 
                     }
                 }
+                else if (input_key == (int)User_Input.Display_User_Info)
+                {
+                    Console.WriteLine("Input the user's username: ");
+                    string username = Console.ReadLine();
+                    bool found = false;
+                    foreach (User user in users)
+                    {
+                        if (user.Get_Username() == username)
+                        {
+                            Display_User_Info(user);
+                            found = true;
+                            break;
+                        }
+                    }
 
-                    using (StreamWriter sw = File.CreateText(path_gift))
+                    if (!found) { Console.WriteLine("No such user found"); }
+                }
+
+                using (StreamWriter sw = File.CreateText(path_gift))
                     {
                         foreach (Gift gifts_tmp in Gifts)
                         {
@@ -360,7 +385,7 @@ namespace SantaClause
                 if (!IsUsernameTaken(newUser.Get_Username()))
                 {
                     WriteUserToFile(newUser);
-
+                    Read_Users(path_users);
                     Console.WriteLine("Registration successful! You can now log in.");
                 }
                 else
@@ -440,7 +465,37 @@ namespace SantaClause
                 Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
                 Console.Write("****************************************************************************\n");
             }
-            static List<Kid_Info> Read_File(string Path)
+
+        static List<User> Read_Users(string Path)
+        {
+            List<User> result = new List<User>();
+            string text = File.ReadAllText(Path);
+            string[] lines = text.Split(Environment.NewLine);
+            foreach (var line in lines)
+            {
+                if (line == "") continue;
+
+                string[] details = line.Split(";");
+                User temp = new User();
+                temp.Set_Name(details[0]);
+                temp.Set_Surname(details[1]);
+                temp.Set_Username(details[2]);
+                temp.Set_Password(details[3]);
+
+                result.Add(temp);
+            }
+
+            return result;
+        }
+
+        static void Display_User_Info(User user)
+        {
+            Console.WriteLine(user.Get_Name() + " " + user.Get_Surname() + ":");
+            Console.WriteLine("Username: " + user.Get_Username());
+            Console.WriteLine("Password: *********");
+        }
+
+        static List<Kid_Info> Read_File(string Path)
             {
 
                 List<Kid_Info> Kids = new List<Kid_Info>();

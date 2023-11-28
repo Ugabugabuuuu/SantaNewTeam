@@ -70,3 +70,17 @@ C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.dll
 C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.pdb
 C:\Users\simon\Downloads\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
 >>>>>>> 158eaa331d44082f0f636545d0edac97f58bdc03
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.csproj.AssemblyReference.cache
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfoInputs.cache
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.AssemblyInfo.cs
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.csproj.CoreCompileInputs.cache
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.dll
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.pdb
+C:\Users\ahama\Desktop\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.exe
+C:\Users\ahama\Desktop\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.deps.json
+C:\Users\ahama\Desktop\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.runtimeconfig.json
+C:\Users\ahama\Desktop\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.runtimeconfig.dev.json
+C:\Users\ahama\Desktop\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.dll
+C:\Users\ahama\Desktop\SantaNewTeam\bin\Debug\netcoreapp3.1\SantaClause.pdb
+C:\Users\ahama\Desktop\SantaNewTeam\obj\Debug\netcoreapp3.1\SantaClause.genruntimeconfig.cache
