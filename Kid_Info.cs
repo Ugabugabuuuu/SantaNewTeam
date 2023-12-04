@@ -32,7 +32,7 @@ using System.Text;
         {
             return Present;
         }
-        // Status to indetify if kid has present or not.
+        // Status to indetify if kid has present or not. haha
         public void Set_Status(bool a)
         {
             fully_assigned = a;
