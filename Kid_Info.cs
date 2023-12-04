@@ -7,7 +7,7 @@ using System.Text;
         private string name;
         private string last_Name;
         private string Present;
-        private bool fully_assigned;
+        private bool fullyAssigned;
         public void Set_name(string name2)
         {
             name = name2;
@@ -35,10 +35,10 @@ using System.Text;
         // Status to indetify if kid has present or not. haha
         public void Set_Status(bool a)
         {
-            fully_assigned = a;
+            fullyAssigned = a;
         }
-        public bool Get_Status()
+        public bool Is_Assigned()
         {
-            return fully_assigned;
+            return fullyAssigned;
         }
     }
