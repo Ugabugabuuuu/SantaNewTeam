@@ -21,6 +21,8 @@ enum User_Input
     Change_Status = 10,
     Display_User_Info = 11,
     Update_User_Info = 12,
+    Give_Feedback = 13,
+    Generate_Feedback_Report = 14,
     Show_History = 15
 }
 
