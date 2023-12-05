@@ -4,10 +4,6 @@ using System.Text;
 
 enum User_Input
 {
-    Register = 2,
-    Login = 1,
-
-
     Exit = 0,
     Add_New_Child = 1,
     Add_New_Gift = 2,

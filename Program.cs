@@ -13,9 +13,9 @@ namespace SantaClause
 
         static public Kid_Controller kid_controller;
         static public GiftController gift_controller;
+        static public FeedbackController feedbackController;
         static List<User> users = new List<User>();
         static  public List<History> history = new List<History>();
-        static List<KeyValuePair<bool, string>> feedbacks;
 
         static private bool authorized = false;
 
@@ -24,13 +24,12 @@ namespace SantaClause
             database = new Database();
             kid_controller = new Kid_Controller(database);
             gift_controller = new GiftController(database);
+            feedbackController = new FeedbackController(database);
 
             Gift gift = new Gift();
             Kid_Info kid = new Kid_Info();
 
             users = database.Read_Users();
-
-            feedbacks = database.Read_Feedback_From_File();
 
             while (!authorized)
             {
@@ -220,9 +219,7 @@ namespace SantaClause
                     Console.WriteLine("Provide your feedback:");
                     string feedback = Console.ReadLine();
 
-
-                    feedbacks.Add(new KeyValuePair<bool, string>(positive, feedback));
-                    database.Write_Feedback_To_File(feedbacks);
+                    feedbackController.Add_Feedback(new KeyValuePair<bool, string>(positive, feedback));
                     Console.WriteLine("Your feedback was successfully added!");
                 }
                 else if (input_key == (int)User_Input.Generate_Feedback_Report)
@@ -230,13 +227,7 @@ namespace SantaClause
                     History h = new History(User_Input.Generate_Feedback_Report.ToString(), DateTime.Now);
                     database.Write_History(h);
 
-                    Console.WriteLine("Positive feedbacks: " + Get_Positive_Percentage() + " %\n");
-                    foreach (KeyValuePair<bool, string> feedback in feedbacks)
-                    {
-                        if (feedback.Key) Console.WriteLine("Positive");
-                        if (!feedback.Key) Console.WriteLine("Negative");
-                        Console.WriteLine(feedback.Value + "\n");
-                    }
+                    Console.WriteLine(feedbackController.Generate_Report_From_Month(DateTime.Today));
                 }
                 else if(input_key == (int)User_Input.Show_History)
                 {
@@ -292,13 +283,13 @@ namespace SantaClause
                 Environment.Exit(0);
             }
               
-            if (input_key == (int)User_Input.Login)
+            if (input_key == (int)LoginInputs.Login)
             {
                 History h = new History("Login", DateTime.Now);
                 database.Write_History(h);
                 LoginPage();
             }
-            else if (input_key == (int)User_Input.Register)
+            else if (input_key == (int)LoginInputs.Register)
             {
                 History h = new History("Register", DateTime.Now);
                 database.Write_History(h);
@@ -707,16 +698,6 @@ namespace SantaClause
                 return;
             }
         }
-        static int Get_Positive_Percentage()
-        {
-            float positives = 0;
-            foreach (KeyValuePair<bool, string> feedback in feedbacks)
-            {
-                if (feedback.Key) positives++;
-            }
-
-            return (int)((positives / (float)feedbacks.Count) * 100f);
-        }
+        
     }
-
 }
