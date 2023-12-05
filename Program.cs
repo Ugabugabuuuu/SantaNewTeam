@@ -13,7 +13,9 @@ namespace SantaClause
 
         static public Kid_Controller kid_controller;
         static public GiftController gift_controller;
+
         static List<User> users = new List<User>();
+        static List<KeyValuePair<bool, string>> feedbacks;
 
         static private bool authorized = false;
 
@@ -28,13 +30,14 @@ namespace SantaClause
 
             users = database.Read_Users();
 
+            feedbacks = database.Read_Feedback_From_File();
+
             while (!authorized)
             {
                 Login();
             }
             while (true)
             {
-
                 Menu();
 
                 bool exists = false;
@@ -163,6 +166,33 @@ namespace SantaClause
                     }
 
                     if (!found) { Console.WriteLine("No such user found"); }
+                }
+                else if (input_key == (int)User_Input.Give_Feedback)
+                {
+                    Console.WriteLine("Is your feedback positive? (y/n)");
+                    bool positive;
+                    string input_positive = Console.ReadLine();
+                    if (input_positive == "y") positive = true;
+                    else if (input_positive == "n") positive = false;
+                    else positive = true;
+
+                    Console.WriteLine("Provide your feedback:");
+                    string feedback = Console.ReadLine();
+
+
+                    feedbacks.Add(new KeyValuePair<bool, string>(positive, feedback));
+                    database.Write_Feedback_To_File(feedbacks);
+                    Console.WriteLine("Your feedback was successfully added!");
+                }
+                else if(input_key == (int)User_Input.Generate_Feedback_Report)
+                {
+                    Console.WriteLine("Positive feedbacks: " + Get_Positive_Percentage() + " %\n");
+                    foreach (KeyValuePair<bool, string> feedback in feedbacks)
+                    {
+                        if (feedback.Key) Console.WriteLine("Positive");
+                        if (!feedback.Key) Console.WriteLine("Negative");
+                        Console.WriteLine(feedback.Value + "\n");
+                    }
                 }
 
                 using (StreamWriter sw = File.CreateText(database.path_gift))
@@ -380,10 +410,13 @@ namespace SantaClause
             Console.Write("****************************************************************************\n");
             Console.Write("**             12          | Update user info                             **\n");
             Console.Write("****************************************************************************\n");
+            Console.Write("**             13          | Give feedback                                **\n");
+            Console.Write("****************************************************************************\n");
+            Console.Write("**             14          | Generate a feedback report                   **\n");
+            Console.Write("****************************************************************************\n");
             Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
             Console.Write("****************************************************************************\n");
         }
-
 
         static void Display_User_Info(User user)
         {
@@ -391,9 +424,6 @@ namespace SantaClause
             Console.WriteLine("Username: " + user.Get_Username());
             Console.WriteLine("Password: *********");
         }
-
-
-
 
         static void Display_All_Gifts(List<Gift> gifts)
         {
@@ -615,6 +645,15 @@ namespace SantaClause
             }
         }
 
-    }
+        static int Get_Positive_Percentage()
+        {
+            float positives = 0;
+            foreach (KeyValuePair<bool, string> feedback in feedbacks)
+            {
+                if(feedback.Key) positives++;
+            }
 
+            return (int)((positives / (float)feedbacks.Count) * 100f);
+        }
+    }
 }

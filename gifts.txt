@@ -1,5 +1,5 @@
 a
-0
+1
 nelaisva
 b
 0
@@ -10,3 +10,6 @@ Laisva
 e
 0
 daroma
+naujadovana
+0
+Laisva

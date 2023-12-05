@@ -9,6 +9,7 @@ class Database
     public string RegisteredKidsPath;
     public string path_gift;
     public string path_users;
+    public string path_feedback;
 
     public Database()
     {
@@ -17,6 +18,7 @@ class Database
         RegisteredKidsPath = currentDir + "\\Data2.txt";
         path_gift = currentDir + "\\gifts.txt";
         path_users = currentDir + "\\user_info.txt";
+        path_feedback = currentDir + "\\feedbacks.txt";
     }
 
     public List<Kid_Info> Read_Kids_From_File(KidsOptions kidsOptions)
@@ -152,6 +154,42 @@ class Database
                 sw.Write(user.Get_Password() + "\n");
             }
         }
+    }
+
+    public void Write_Feedback_To_File(List<KeyValuePair<bool, string>> feedbacks)
+    {
+        using (StreamWriter sw = File.CreateText(path_feedback))
+        {
+            foreach (KeyValuePair<bool, string> feedback in feedbacks)
+            {
+                if (feedback.Key) sw.Write("Positive\n");
+                if (!feedback.Key) sw.Write("Negative\n");
+                sw.Write(feedback.Value + "\n\n");
+            }
+        }
+    }
+    public List<KeyValuePair<bool, string>> Read_Feedback_From_File()
+    {
+        List<KeyValuePair<bool, string>> result = new List<KeyValuePair<bool, string>>();
+        string text = File.ReadAllText(path_feedback);
+        string[] lines = text.Split("\n");
+
+        bool positive = false;
+        string feedback;
+
+        foreach (var line in lines)
+        {
+            if (line == "") continue;
+            if (line == "Positive") positive = true;
+            else if (line == "Negative") positive = false;
+            else
+            {
+                feedback = line;
+                result.Add(new KeyValuePair<bool, string>(positive, line));
+            }
+        }
+
+        return result;
     }
 
 }

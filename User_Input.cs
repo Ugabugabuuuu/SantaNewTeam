@@ -20,6 +20,8 @@ enum User_Input
     Display_Unassignes = 9,
     Change_Status = 10,
     Display_User_Info = 11,
-    Update_User_Info = 12
+    Update_User_Info = 12,
+    Give_Feedback = 13,
+    Generate_Feedback_Report = 14
 }
 
