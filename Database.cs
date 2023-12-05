@@ -9,7 +9,7 @@ class Database
     public string RegisteredKidsPath;
     public string path_gift;
     public string path_users;
-    public string path_feedback;
+    public string path_history;
 
     public Database()
     {
@@ -18,7 +18,7 @@ class Database
         RegisteredKidsPath = currentDir + "\\Data2.txt";
         path_gift = currentDir + "\\gifts.txt";
         path_users = currentDir + "\\user_info.txt";
-        path_feedback = currentDir + "\\feedbacks.txt";
+        path_history = currentDir + "\\history.txt";
     }
 
     public List<Kid_Info> Read_Kids_From_File(KidsOptions kidsOptions)
@@ -155,42 +155,33 @@ class Database
             }
         }
     }
+    public List<History> Read_History()
+    {
 
-    public void Write_Feedback_To_File(List<KeyValuePair<bool, string>> feedbacks)
-    {
-        using (StreamWriter sw = File.CreateText(path_feedback))
-        {
-            foreach (KeyValuePair<bool, string> feedback in feedbacks)
-            {
-                if (feedback.Key) sw.Write("Positive\n");
-                if (!feedback.Key) sw.Write("Negative\n");
-                sw.Write(feedback.Value + "\n\n");
-            }
-        }
-    }
-    public List<KeyValuePair<bool, string>> Read_Feedback_From_File()
-    {
-        List<KeyValuePair<bool, string>> result = new List<KeyValuePair<bool, string>>();
-        string text = File.ReadAllText(path_feedback);
+        List<History> result = new List<History>();
+        string text = File.ReadAllText(path_history);
         string[] lines = text.Split("\n");
-
-        bool positive = false;
-        string feedback;
-
         foreach (var line in lines)
         {
             if (line == "") continue;
-            if (line == "Positive") positive = true;
-            else if (line == "Negative") positive = false;
-            else
-            {
-                feedback = line;
-                result.Add(new KeyValuePair<bool, string>(positive, line));
-            }
+
+            string[] details = line.Split(";");
+            History temp = new History(details[0], DateTime.Parse(details[1]));
+
+            result.Add(temp);
         }
 
         return result;
     }
-
+    public void Write_History(History history)
+    {
+        using (StreamWriter sw = new StreamWriter(path_history, true))
+        {
+            sw.Write(history.get_Command());
+            sw.Write(";");
+            sw.Write(history.get_Executed());
+            sw.Write("\n");
+        }
+    }
 }
 

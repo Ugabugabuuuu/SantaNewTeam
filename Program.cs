@@ -13,9 +13,8 @@ namespace SantaClause
 
         static public Kid_Controller kid_controller;
         static public GiftController gift_controller;
-
         static List<User> users = new List<User>();
-        static List<KeyValuePair<bool, string>> feedbacks;
+        static  public List<History> history = new List<History>();
 
         static private bool authorized = false;
 
@@ -30,14 +29,13 @@ namespace SantaClause
 
             users = database.Read_Users();
 
-            feedbacks = database.Read_Feedback_From_File();
-
             while (!authorized)
             {
                 Login();
             }
             while (true)
             {
+
                 Menu();
 
                 bool exists = false;
@@ -49,43 +47,69 @@ namespace SantaClause
                     Console.WriteLine(input_key + "\n");
                 }
                 if (input_key == (int)User_Input.Exit)
+                {
+                    History h  = new History(User_Input.Exit.ToString(), DateTime.Now);
+                    database.Write_History(h);
                     Environment.Exit(0);
+                }
                 if (input_key == (int)User_Input.Add_New_Child)
                 {
                     kid_controller.Add_New_Kid_To_List(kid);
-
+                    History h = new History(User_Input.Add_New_Child.ToString(), DateTime.Now);
+                    database.Write_History(h);
                     kid = null;
                 }
                 else if (input_key == (int)User_Input.Add_New_Gift)
                 {
                     gift_controller.Add_Gifts_To_List(gift, exists, users);
+                    History h = new History(User_Input.Add_New_Gift.ToString(), DateTime.Now);
+                    database.Write_History(h);
                     gift = null;
                 }
                 else if (input_key == (int)User_Input.Add_Spec_Gift_To_Kid)
                 {
                     Add_Gift_To_Specific_Child(gift, exists);
                     gift = null;
+
+                    History h = new History(User_Input.Add_Spec_Gift_To_Kid.ToString(), DateTime.Now);
+                    database.Write_History(h);
                 }
                 else if (input_key == (int)User_Input.Add_Spec_Gift_To_Rand_Kid)
                 {
                     Add_Specific_Gift_To_Rand_Child(gift, exists);
                     gift = null;
+
+                    History h = new History(User_Input.Add_Spec_Gift_To_Rand_Kid.ToString(), DateTime.Now);
+                    database.Write_History(h);
                 }
                 else if (input_key == (int)User_Input.Rand_Gift_To_Rand_Kid)
                 {
+
+                    History h = new History(User_Input.Rand_Gift_To_Rand_Kid.ToString(), DateTime.Now);
+                    database.Write_History(h);
+
                     Add_Rand_Gift_To_Rand_Child(exists);
                 }
                 else if (input_key == (int)User_Input.Lazy_Mode)
                 {
+                    History h = new History(User_Input.Lazy_Mode.ToString(), DateTime.Now);
+                    database.Write_History(h);
+
                     Lazy_Mode();
                 }
                 else if (input_key == (int)User_Input.Display_All_Kids)
                 {
                     Display_All_Kids(kid_controller.Get_Kids(KidsOptions.NotRegistered));
+
+                    History h = new History(User_Input.Display_All_Kids.ToString(), DateTime.Now);
+                    database.Write_History(h);
                 }
                 else if (input_key == (int)User_Input.Display_Gift_List)
                 {
                     Display_All_Gifts(gift_controller.Gifts);
+
+                    History h = new History(User_Input.Display_Gift_List.ToString(), DateTime.Now);
+                    database.Write_History(h);
                 }
                 else if (input_key == (int)User_Input.Display_Unassignes)
                 {
@@ -97,6 +121,9 @@ namespace SantaClause
                         if (tmp_gift.Get_Amount() == 0)
                             amount++;
                     Console.WriteLine(" Number of unassigned gifts: " + amount);
+
+                    History h = new History(User_Input.Display_Unassignes.ToString(), DateTime.Now);
+                    database.Write_History(h);
                 }
                 else if (input_key == (int)User_Input.Change_Status)
                 {
@@ -119,9 +146,14 @@ namespace SantaClause
                         }
 
                     }
+                    History h = new History(User_Input.Change_Status.ToString(), DateTime.Now);
+                    database.Write_History(h);
                 }
                 else if (input_key == (int)User_Input.Display_User_Info)
                 {
+                    History h = new History(User_Input.Display_User_Info.ToString(), DateTime.Now);
+                    database.Write_History(h);
+
                     Console.WriteLine("Input the user's username: ");
                     string username = Console.ReadLine();
                     bool found = false;
@@ -139,6 +171,9 @@ namespace SantaClause
                 }
                 else if (input_key == (int)User_Input.Update_User_Info)
                 {
+                    History h = new History(User_Input.Update_User_Info.ToString(), DateTime.Now);
+                    database.Write_History(h);
+
                     Console.WriteLine("Input the user's username: ");
                     string username = Console.ReadLine();
                     bool found = false;
@@ -167,31 +202,12 @@ namespace SantaClause
 
                     if (!found) { Console.WriteLine("No such user found"); }
                 }
-                else if (input_key == (int)User_Input.Give_Feedback)
+                else if(input_key == (int)User_Input.Show_History)
                 {
-                    Console.WriteLine("Is your feedback positive? (y/n)");
-                    bool positive;
-                    string input_positive = Console.ReadLine();
-                    if (input_positive == "y") positive = true;
-                    else if (input_positive == "n") positive = false;
-                    else positive = true;
-
-                    Console.WriteLine("Provide your feedback:");
-                    string feedback = Console.ReadLine();
-
-
-                    feedbacks.Add(new KeyValuePair<bool, string>(positive, feedback));
-                    database.Write_Feedback_To_File(feedbacks);
-                    Console.WriteLine("Your feedback was successfully added!");
-                }
-                else if(input_key == (int)User_Input.Generate_Feedback_Report)
-                {
-                    Console.WriteLine("Positive feedbacks: " + Get_Positive_Percentage() + " %\n");
-                    foreach (KeyValuePair<bool, string> feedback in feedbacks)
+                    history = database.Read_History();
+                    foreach (History h2 in history)
                     {
-                        if (feedback.Key) Console.WriteLine("Positive");
-                        if (!feedback.Key) Console.WriteLine("Negative");
-                        Console.WriteLine(feedback.Value + "\n");
+                        Console.WriteLine(h2.get_Executed() + "->" + h2.get_Command());
                     }
                 }
 
@@ -234,13 +250,22 @@ namespace SantaClause
                 Console.WriteLine(input_key + "\n");
             }
             if (input_key == (int)User_Input.Exit)
+            {
+                History h = new History(User_Input.Exit.ToString(), DateTime.Now);
+                database.Write_History(h);
                 Environment.Exit(0);
+            }
+              
             if (input_key == (int)User_Input.Login)
             {
+                History h = new History("Login", DateTime.Now);
+                database.Write_History(h);
                 LoginPage();
             }
             else if (input_key == (int)User_Input.Register)
             {
+                History h = new History("Register", DateTime.Now);
+                database.Write_History(h);
                 RegisterPage();
             }
 
@@ -410,13 +435,12 @@ namespace SantaClause
             Console.Write("****************************************************************************\n");
             Console.Write("**             12          | Update user info                             **\n");
             Console.Write("****************************************************************************\n");
-            Console.Write("**             13          | Give feedback                                **\n");
-            Console.Write("****************************************************************************\n");
-            Console.Write("**             14          | Generate a feedback report                   **\n");
+            Console.Write("**             15          | Show history                                 **\n");
             Console.Write("****************************************************************************\n");
             Console.Write("**                TO EXIT PROGRAM TYPE 0 AND PRESS ENTER                  **\n");
             Console.Write("****************************************************************************\n");
         }
+
 
         static void Display_User_Info(User user)
         {
@@ -424,6 +448,9 @@ namespace SantaClause
             Console.WriteLine("Username: " + user.Get_Username());
             Console.WriteLine("Password: *********");
         }
+
+
+
 
         static void Display_All_Gifts(List<Gift> gifts)
         {
@@ -644,16 +671,10 @@ namespace SantaClause
                 return;
             }
         }
-
-        static int Get_Positive_Percentage()
+        void Add_To_History (String str)
         {
-            float positives = 0;
-            foreach (KeyValuePair<bool, string> feedback in feedbacks)
-            {
-                if(feedback.Key) positives++;
-            }
-
-            return (int)((positives / (float)feedbacks.Count) * 100f);
         }
+
     }
+
 }
